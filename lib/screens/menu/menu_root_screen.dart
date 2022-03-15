@@ -14,10 +14,12 @@ class MenuRootScreen extends StatefulWidget {
 class _MenuRootScreenState extends State<MenuRootScreen> {
   final List<MenuItem> menuItems = List<int>.generate(10, (i) => i + 1)
       .map((e) => MenuItem(
-    'name' + e.toString(),
-    'description ' * 10 + e.toString(),
-    e.toDouble(),
-  ))
+            e.toString(),
+            'name' + e.toString(),
+            'description ' * 10 + e.toString(),
+            e.toDouble(),
+            e.toString(),
+          ))
       .toList();
 
   @override
