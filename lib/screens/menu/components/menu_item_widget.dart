@@ -11,16 +11,18 @@ class MenuItemWidget extends StatelessWidget {
   final String title;
   final String description;
   final String price;
+  final String imageUrl;
 
   const MenuItemWidget({
     Key? key,
     required this.title,
     required this.description,
     required this.price,
+    required this.imageUrl,
   }) : super(key: key);
 
   factory MenuItemWidget.fromModel(MenuItem model) {
-    final priceFormatter = NumberFormat.currency(symbol: '\$')
+    final priceFormatter = NumberFormat.currency(symbol: '₽')
       ..maximumFractionDigits = 2
       ..minimumFractionDigits = 0;
 
@@ -28,6 +30,7 @@ class MenuItemWidget extends StatelessWidget {
       title: model.name,
       description: model.description,
       price: priceFormatter.format(model.price),
+      imageUrl: model.imageUrl,
     );
   }
 
@@ -49,8 +52,9 @@ class MenuItemWidget extends StatelessWidget {
             AspectRatio(
               aspectRatio: 1 / 1,
               // TODO CHANGE CHILD TO IMAGE
-              child: Container(
-                color: Colors.blue,
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.fill,
               ),
             ),
             Expanded(
@@ -62,17 +66,20 @@ class MenuItemWidget extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        StandardText(title,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            )),
-                        const Spacer(),
-                        StandardText(price,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            )),
+                        Expanded(
+                            child: StandardText(title,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ))),
+                        const SizedBox(width: 10),
+                        StandardText(
+                          price,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 5),

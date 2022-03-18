@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:graduate_work/networking/api/api.dart';
+import 'package:graduate_work/screens/menu/components/menu_item_widget.dart';
 
 import '../../models/menu_item.dart';
 import '../../widgets/standard/standard_widgets.dart';
-import 'components/menu_item_widget.dart';
 
 class MenuRootScreen extends StatefulWidget {
   const MenuRootScreen({Key? key}) : super(key: key);
@@ -12,27 +13,39 @@ class MenuRootScreen extends StatefulWidget {
 }
 
 class _MenuRootScreenState extends State<MenuRootScreen> {
-  final List<MenuItem> menuItems = List<int>.generate(10, (i) => i + 1)
-      .map((e) => MenuItem(
-            e.toString(),
-            'name' + e.toString(),
-            'description ' * 10 + e.toString(),
-            e.toDouble(),
-            e.toString(),
-          ))
-      .toList();
-
   @override
   Widget build(BuildContext context) {
     return StandardScaffold.standardWithStandardAppBar(
       appBarTitle: 'Menu',
       context: context,
-      body: ListView.builder(
-        padding: const EdgeInsets.only(top: 8, bottom: 8),
+      body: FutureBuilder<List<MenuItem>?>(
+        future: fetchMenuItems(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(child: StandardText('Ошибки загрузки'));
+          }
+          if (snapshot.data != null) {
+            return _buildListView(snapshot.data!);
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
+    );
+  }
+
+  Widget _buildListView(List<MenuItem> menuItems) => ListView.builder(
         itemBuilder: (context, index) =>
             MenuItemWidget.fromModel(menuItems[index]),
         itemCount: menuItems.length,
-      ),
-    );
+        padding: const EdgeInsets.symmetric(vertical: 8),
+      );
+
+  Future<List<MenuItem>?> fetchMenuItems() async {
+    try {
+      final items = await RestClient.shared.fetchMenuItems();
+      return items;
+    } catch (error) {
+      return [];
+    }
   }
 }

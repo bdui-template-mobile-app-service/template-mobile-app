@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../providers/colors_provider.dart';
 
 class StandardText extends StatelessWidget {
-  static const defaultOverflow = TextOverflow.ellipsis;
+  static const defaultOverflow = TextOverflow.fade;
 
   final String text;
 
@@ -18,14 +18,14 @@ class StandardText extends StatelessWidget {
   final bool replaceTextColorToStandard;
 
   const StandardText(
-      this.text, {
-        Key? key,
-        this.maxLines,
-        this.overflow,
-        this.style,
-        this.textAlign,
-        this.replaceTextColorToStandard = true,
-      }) : super(key: key);
+    this.text, {
+    Key? key,
+    this.maxLines,
+    this.overflow,
+    this.style,
+    this.textAlign,
+    this.replaceTextColorToStandard = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +40,7 @@ class StandardText extends StatelessWidget {
       textAlign: textAlign,
       overflow: overflow ?? defaultOverflow,
       maxLines: maxLines,
+      softWrap: false,
       style: finalStyle,
     );
   }
