@@ -14,9 +14,6 @@ class StandardText extends StatelessWidget {
 
   final TextStyle? style;
 
-  /// Properties for replacing to standard (from context)
-  final bool replaceTextColorToStandard;
-
   const StandardText(
     this.text, {
     Key? key,
@@ -24,7 +21,6 @@ class StandardText extends StatelessWidget {
     this.overflow,
     this.style,
     this.textAlign,
-    this.replaceTextColorToStandard = true,
   }) : super(key: key);
 
   @override
@@ -32,7 +28,7 @@ class StandardText extends StatelessWidget {
     final colorSet = context.watch<ColorsProvider>().colorSet;
 
     final finalStyle = (style ?? const TextStyle()).copyWith(
-      color: replaceTextColorToStandard ? colorSet.primaryText : style?.color,
+      color: style?.color ?? colorSet.primaryText,
     );
 
     return Text(

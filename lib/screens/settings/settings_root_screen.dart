@@ -44,7 +44,7 @@ class _SettingsRootScreenState extends State<SettingsRootScreen> {
                 ThemeMode.dark: 'Dark',
               },
               selectedThemeMode,
-                  (value) {
+              (value) {
                 if (value != null) {
                   context.read<ThemeProvider>().setThemeMode(value);
                   setState(() {});
@@ -61,39 +61,39 @@ class _SettingsRootScreenState extends State<SettingsRootScreen> {
       Navigator.of(context).push(MaterialPageRoute(builder: builder));
 
   static Widget buttonsSection(
-      BuildContext context,
-      String title,
-      List<_SectionedButtonModel> buttons,
-      ) {
+    BuildContext context,
+    String title,
+    List<_SectionedButtonModel> buttons,
+  ) {
     final colorSet = context.watch<ColorsProvider>().colorSet;
     return section(
       context,
       title,
       buttons
           .map((model) => GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: model.onTap,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          child: Row(children: [
-            StandardText(
-              model.title,
-              textAlign: TextAlign.start,
-            ),
-            const Spacer(),
-            const Icon(Icons.arrow_forward_ios_sharp, size: 15),
-          ]),
-        ),
-      ))
+                behavior: HitTestBehavior.translucent,
+                onTap: model.onTap,
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(children: [
+                    StandardText(
+                      model.title,
+                      textAlign: TextAlign.start,
+                    ),
+                    const Spacer(),
+                    const Icon(Icons.arrow_forward_ios_sharp, size: 15),
+                  ]),
+                ),
+              ))
           .toList(),
     );
   }
 
   static Widget section(
-      BuildContext context,
-      String title,
-      List<Widget> children,
-      ) {
+    BuildContext context,
+    String title,
+    List<Widget> children,
+  ) {
     final colorSet = context.watch<ColorsProvider>().colorSet;
     return widgetWithTitle(
       context,
@@ -113,10 +113,10 @@ class _SettingsRootScreenState extends State<SettingsRootScreen> {
   }
 
   static Widget widgetWithTitle(
-      BuildContext context,
-      String title,
-      Widget child,
-      ) {
+    BuildContext context,
+    String title,
+    Widget child,
+  ) {
     final colorSet = context.watch<ColorsProvider>().colorSet;
 
     return Column(
@@ -127,7 +127,6 @@ class _SettingsRootScreenState extends State<SettingsRootScreen> {
           padding: const EdgeInsets.only(left: 8, bottom: 8),
           child: StandardText(
             title,
-            replaceTextColorToStandard: false,
             style: TextStyle(
                 color: colorSet.secondaryText, fontWeight: FontWeight.bold),
           ),
