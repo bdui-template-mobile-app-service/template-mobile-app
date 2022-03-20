@@ -4,13 +4,12 @@ import 'package:provider/provider.dart';
 import '../../../providers/colors_provider.dart';
 
 class StandardText extends StatelessWidget {
-  static const defaultOverflow = TextOverflow.fade;
-
   final String text;
 
   final int? maxLines;
   final TextOverflow? overflow;
   final TextAlign? textAlign;
+  final bool? softWrap;
 
   final TextStyle? style;
 
@@ -21,6 +20,7 @@ class StandardText extends StatelessWidget {
     this.overflow,
     this.style,
     this.textAlign,
+    this.softWrap,
   }) : super(key: key);
 
   @override
@@ -34,9 +34,9 @@ class StandardText extends StatelessWidget {
     return Text(
       text,
       textAlign: textAlign,
-      overflow: overflow ?? defaultOverflow,
+      overflow: overflow,
       maxLines: maxLines,
-      softWrap: false,
+      softWrap: softWrap,
       style: finalStyle,
     );
   }

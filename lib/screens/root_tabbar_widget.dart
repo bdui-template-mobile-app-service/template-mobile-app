@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:graduate_work/screens/about_company/about_company_root_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../flow_widgets/tab_bar_widget.dart';
@@ -8,7 +7,6 @@ import '../providers/colors_provider.dart';
 import '../widgets/standard/standard_widgets.dart';
 import 'menu/menu_root_screen.dart';
 import 'promotions/promotions_screen.dart';
-import 'settings/settings_root_screen.dart';
 
 class RootTabBarWidget extends StatefulWidget {
   const RootTabBarWidget({Key? key}) : super(key: key);
@@ -47,9 +45,9 @@ class _RootTabBarWidgetState extends State<RootTabBarWidget> {
       ),
       TabBarScreenModel(
         navBarItem: const BottomNavigationBarItem(
-            icon: Icon(Icons.settings), label: 'Settings'),
-        rootWidget: const SettingsRootScreen(),
-      ),
+            icon: Icon(Icons.factory), label: 'About'),
+        rootWidget: const AboutCompanyRootScreen(),
+      )
     ];
   }
 }

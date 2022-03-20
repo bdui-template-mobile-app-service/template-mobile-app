@@ -7,10 +7,12 @@ extension StandardAppBar on AppBar {
   static AppBar standard({
     required BuildContext context,
     required Widget title,
+    List<Widget>? actions,
   }) {
     final colorSet = context.watch<ColorsProvider>().colorSet;
     return AppBar(
       title: title,
+      actions: actions,
       bottom: _SeparatorWidget(height: 0.3, color: colorSet.separator),
       foregroundColor: colorSet.primaryText,
       backgroundColor: colorSet.tabNavigation,
@@ -24,7 +26,7 @@ class _SeparatorWidget extends PreferredSize {
     required double height,
     required Color color,
   }) : super(
-    child: Container(color: color, height: height),
-    preferredSize: Size.fromHeight(height),
-  );
+          child: Container(color: color, height: height),
+          preferredSize: Size.fromHeight(height),
+        );
 }

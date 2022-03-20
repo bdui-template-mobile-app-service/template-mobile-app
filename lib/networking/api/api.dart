@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:graduate_work/models/about_company_info.dart';
 import 'package:graduate_work/models/menu_item.dart';
 import 'package:graduate_work/models/promotion_item.dart';
 import 'package:retrofit/retrofit.dart';
@@ -26,4 +27,7 @@ abstract class RestClient {
 
   @GET('/promotions/')
   Future<List<PromotionItem>> fetchPromotions();
+
+  @GET('/food_projects/')
+  Future<AboutCompanyInfo> fetchAboutCompanyInfo();
 }

@@ -29,13 +29,6 @@ class PromotionsItemWidget extends StatefulWidget {
 
 class _PromotionsItemWidgetState extends State<PromotionsItemWidget> {
   @override
-  void initState() {
-    super.initState();
-
-    // setTextColorByImage();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ClipperContainer(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -46,7 +39,7 @@ class _PromotionsItemWidgetState extends State<PromotionsItemWidget> {
         children: [
           Image.network(
             widget.imageUrl,
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
           ),

@@ -54,7 +54,7 @@ class MenuItemWidget extends StatelessWidget {
               // TODO CHANGE CHILD TO IMAGE
               child: Image.network(
                 imageUrl,
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
             ),
             Expanded(
@@ -68,6 +68,8 @@ class MenuItemWidget extends StatelessWidget {
                       children: [
                         Expanded(
                             child: StandardText(title,
+                                softWrap: false,
+                                overflow: TextOverflow.fade,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
