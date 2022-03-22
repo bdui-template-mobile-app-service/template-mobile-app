@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduate_work/arch/utils.dart';
 import 'package:graduate_work/models/promotion_item.dart';
 
 import '../../../widgets/custom/custom.dart';
@@ -6,22 +7,32 @@ import '../../../widgets/standard/standard_widgets.dart';
 
 class PromotionsItemWidget extends StatefulWidget {
   final String title;
+  final String price;
   final String imageUrl;
   final Color textColor;
+  final Widget? additionalBottomWidget;
 
   const PromotionsItemWidget({
     Key? key,
     required this.title,
+    required this.price,
     required this.imageUrl,
     required this.textColor,
+    this.additionalBottomWidget,
   }) : super(key: key);
 
-  factory PromotionsItemWidget.fromModel(PromotionItem model) =>
-      PromotionsItemWidget(
-        title: model.name,
-        imageUrl: model.imageUrl,
-        textColor: model.textColor,
-      );
+  factory PromotionsItemWidget.fromModel(
+    PromotionItem model, {
+    Widget? additionalBottomWidget,
+  }) {
+    return PromotionsItemWidget(
+      title: model.name,
+      imageUrl: model.imageUrl,
+      textColor: model.textColor,
+      price: defaultPriceFormat.format(model.price),
+      additionalBottomWidget: additionalBottomWidget,
+    );
+  }
 
   @override
   State<PromotionsItemWidget> createState() => _PromotionsItemWidgetState();
@@ -49,15 +60,34 @@ class _PromotionsItemWidgetState extends State<PromotionsItemWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                StandardText(widget.title,
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: widget.textColor,
-                    )),
+                Row(
+                  children: [
+                    Expanded(
+                      child: StandardText(widget.title,
+                          softWrap: false,
+                          overflow: TextOverflow.fade,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: widget.textColor,
+                          )),
+                    ),
+                    const SizedBox(width: 10),
+                    StandardText(
+                      widget.price,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: widget.textColor,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
-          )
+          ),
+          if (widget.additionalBottomWidget != null)
+            widget.additionalBottomWidget!,
         ],
       ),
     );

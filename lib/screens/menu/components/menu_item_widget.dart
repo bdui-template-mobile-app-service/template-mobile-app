@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:graduate_work/arch/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/menu_item.dart';
@@ -12,6 +12,7 @@ class MenuItemWidget extends StatelessWidget {
   final String description;
   final String price;
   final String imageUrl;
+  final Widget? replacingDescriptionWidget;
 
   const MenuItemWidget({
     Key? key,
@@ -19,18 +20,19 @@ class MenuItemWidget extends StatelessWidget {
     required this.description,
     required this.price,
     required this.imageUrl,
+    this.replacingDescriptionWidget,
   }) : super(key: key);
 
-  factory MenuItemWidget.fromModel(MenuItem model) {
-    final priceFormatter = NumberFormat.currency(symbol: '₽')
-      ..maximumFractionDigits = 2
-      ..minimumFractionDigits = 0;
-
+  factory MenuItemWidget.fromModel(
+    MenuItem model, {
+    Widget? replacingDescriptionWidget,
+  }) {
     return MenuItemWidget(
       title: model.name,
       description: model.description,
-      price: priceFormatter.format(model.price),
+      price: defaultPriceFormat.format(model.price),
       imageUrl: model.imageUrl,
+      replacingDescriptionWidget: replacingDescriptionWidget,
     );
   }
 
@@ -85,7 +87,9 @@ class MenuItemWidget extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    StandardText(description, maxLines: 3),
+                    (replacingDescriptionWidget != null)
+                        ? replacingDescriptionWidget!
+                        : StandardText(description, maxLines: 3),
                   ],
                 ),
               ),

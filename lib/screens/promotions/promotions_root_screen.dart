@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduate_work/networking/api/api.dart';
+import 'package:graduate_work/screens/promotions/promotion_detail_screen.dart';
 
 import '../../models/promotion_item.dart';
 import '../../widgets/standard/standard_widgets.dart';
@@ -34,11 +35,20 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
   }
 
   Widget _buildListView(List<PromotionItem> promotions) => ListView.builder(
-        itemBuilder: (context, index) =>
-            PromotionsItemWidget.fromModel(promotions[index]),
+        itemBuilder: (context, index) => GestureDetector(
+          child: PromotionsItemWidget.fromModel(promotions[index]),
+          onTap: () => _showDetailPromotion(context, promotions[index]),
+        ),
         itemCount: promotions.length,
         padding: const EdgeInsets.symmetric(vertical: 8),
       );
+
+  void _showDetailPromotion(BuildContext context, PromotionItem promotion) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+          builder: (_) => PromotionDetailScreen(promotion: promotion)),
+    );
+  }
 
   Future<List<PromotionItem>> _fetchPromotions() async {
     try {
