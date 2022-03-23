@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../../providers/colors_provider.dart';
 import 'app_bar.dart';
-import 'text.dart';
 
 extension StandardScaffold on Scaffold {
   static Scaffold standardWithStandardAppBar({
@@ -16,7 +15,7 @@ extension StandardScaffold on Scaffold {
         body: body,
         appBar: StandardAppBar.standard(
           context: context,
-          title: StandardText(appBarTitle),
+          title: Text(appBarTitle),
         ),
       );
 

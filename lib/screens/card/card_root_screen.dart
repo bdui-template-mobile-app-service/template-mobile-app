@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:graduate_work/arch/utils.dart';
 import 'package:graduate_work/providers/card_provider.dart';
 import 'package:graduate_work/screens/menu/components/menu_item_widget.dart';
 import 'package:graduate_work/screens/promotions/components/promotions_item_widget.dart';
@@ -21,7 +23,7 @@ class _CardRootScreenState extends State<CardRootScreen> {
 
     return StandardScaffold.standardWithStandardAppBar(
       context: context,
-      appBarTitle: 'appBarTitle',
+      appBarTitle: 'Корзина',
       body: cardProvider.menuItems.isEmpty && cardProvider.promotions.isEmpty
           ? _buildEmptyPlaceholder()
           : _buildListView(cardProvider),
@@ -31,10 +33,26 @@ class _CardRootScreenState extends State<CardRootScreen> {
   Widget _buildEmptyPlaceholder() =>
       const Center(child: StandardText('В корзине ничего нет'));
 
-  Widget _buildListView(CardProvider cardProvider) => ListView(
+  Widget _buildListView(CardProvider cardProvider) => Stack(
         children: [
-          ..._menuItemOrders(cardProvider.menuItems),
-          ..._promotionOrders(cardProvider.promotions),
+          ListView(
+            padding: const EdgeInsets.only(bottom: 65),
+            children: [
+              ..._menuItemOrders(cardProvider.menuItems),
+              ..._promotionOrders(cardProvider.promotions),
+              _buildResultSum(cardProvider.menuItems, cardProvider.promotions),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: _buildSendOrderButton(
+                cardProvider.menuItems,
+                cardProvider.promotions,
+              ),
+            ),
+          ),
         ],
       );
 
@@ -46,22 +64,24 @@ class _CardRootScreenState extends State<CardRootScreen> {
         padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
         child: StandardText(
           'Пукнты меню:',
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
       ),
-      ...menuItems.map((e) => Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              MenuItemWidget.fromModel(
-                e.model,
-                replacingDescriptionWidget: Align(
-                  alignment: Alignment.centerRight,
-                  child: AddToCarWidget(menuItem: e.model),
-                ),
+      ...menuItems.map(
+        (e) => Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            MenuItemWidget.fromModel(
+              e.model,
+              replacingDescriptionWidget: Align(
+                alignment: Alignment.centerRight,
+                child: AddToCarWidget(menuItem: e.model),
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     ];
   }
 
@@ -73,25 +93,68 @@ class _CardRootScreenState extends State<CardRootScreen> {
         padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
         child: StandardText(
           'Акции:',
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
       ),
-      ...promotions.map((e) => Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              PromotionsItemWidget.fromModel(
-                e.model,
-                additionalBottomWidget: Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 8, right: 8),
-                    child: AddToCarWidget(promotion: e.model),
-                  ),
-                ),
+      ...promotions.map((e) => PromotionsItemWidget.fromModel(
+            e.model,
+            additionalBottomWidget: Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 8, right: 8),
+                child: AddToCarWidget(promotion: e.model),
               ),
-            ],
+            ),
           )),
     ];
+  }
+
+  Widget _buildResultSum(
+    List<CardMenuItemsCountedModel> menuItems,
+    List<CardPromotionsCountedModel> promotions,
+  ) {
+    final sum = defaultPriceFormat.format(
+        (menuItems.map((e) => e.count * e.model.price).sum +
+            promotions.map((e) => e.count * e.model.price).sum));
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          StandardText(
+            'Итоговая сумма: $sum',
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSendOrderButton(
+    List<CardMenuItemsCountedModel> menuItems,
+    List<CardPromotionsCountedModel> promotions,
+  ) =>
+      GestureDetector(
+        onTap: () => _sendOrder(menuItems, promotions),
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: const Center(
+            child: StandardText(
+              'Оформить',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+      );
+
+  void _sendOrder(
+    List<CardMenuItemsCountedModel> menuItems,
+    List<CardPromotionsCountedModel> promotions,
+  ) {
+    print(menuItems);
+    print(promotions);
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
 import 'rgb_color.dart';
 
 // If needed we can give this manager custom colorSchema that
@@ -46,19 +48,32 @@ class ColorSet {
     required this.secondaryText,
   });
 
-  factory ColorSet.standardLight() => _StandardColorSet.light;
-  factory ColorSet.standardDark() => _StandardColorSet.dark;
+  ColorSet copyWith({Color? barNavigation}) => ColorSet(
+        tabNavigation: tabNavigation,
+        barNavigation: barNavigation ?? this.barNavigation,
+        separator: separator,
+        shadow: shadow,
+        background: background,
+        content: content,
+        secondary: secondary,
+        secondary2: secondary2,
+        primaryText: primaryText,
+        secondaryText: secondaryText,
+      );
+
+  factory ColorSet.standardLight() => StandardColorSet.light;
+  factory ColorSet.standardDark() => StandardColorSet.dark;
 }
 
 /// Standard color set
 /// Use for define default colors, if from server noting came
-class _StandardColorSet {
+class StandardColorSet {
   static const clear = Color.fromARGB(0, 0, 0, 0);
   static final black = RGBColor.fromHex('#000000');
   static final white = RGBColor.fromHex('#FFFFFF');
   static final universalGrey = RGBColor.fromHex('#f2f1f6');
 
-  static final light = ColorSet(
+  static var light = ColorSet(
     tabNavigation: white,
     barNavigation: white,
     separator: universalGrey,
@@ -71,7 +86,7 @@ class _StandardColorSet {
     secondaryText: black,
   );
 
-  static final dark = ColorSet(
+  static var dark = ColorSet(
     tabNavigation: RGBColor.fromHex('#111111'),
     barNavigation: RGBColor.fromHex('#111111'),
     separator: universalGrey,
