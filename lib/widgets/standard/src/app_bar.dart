@@ -12,7 +12,6 @@ extension StandardAppBar on AppBar {
     final colorSet = context.watch<ColorsProvider>().colorSet;
 
     final backgroundColor = colorSet.barNavigation;
-    print(backgroundColor.computeLuminance());
     final foregroundColor = (backgroundColor.computeLuminance() > 0.4)
         ? Colors.black
         : Colors.white;

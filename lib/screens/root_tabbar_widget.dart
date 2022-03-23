@@ -84,24 +84,3 @@ class _LolKek2State extends State<LolKek2> {
     );
   }
 }
-
-class StlessWidget extends StatelessWidget {
-  const StlessWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final colorSet = context.watch<ColorsProvider>().colorSet;
-    return Container(
-      color: colorSet.primaryText,
-      child: Center(
-        child: MaterialButton(
-          child: Text('light'),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => LolKek2()));
-          },
-        ),
-      ),
-    );
-  }
-}

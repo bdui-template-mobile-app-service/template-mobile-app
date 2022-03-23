@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../providers/colors_provider.dart';
 
-
 // NOTE: It's base file
 
 class TabBarWidgetModel {
@@ -30,8 +29,9 @@ class TabBarWidget extends StatefulWidget {
 }
 
 class _TabBarWidgetState extends State<TabBarWidget> {
-  late final controller =
-  CupertinoTabController(initialIndex: widget.model.initialIndex);
+  late final controller = CupertinoTabController(
+    initialIndex: widget.model.initialIndex,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +41,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
       tabBar: CupertinoTabBar(
         items: widget.model.screens.map((e) => e.navBarItem).toList(),
         backgroundColor: colorSet.tabNavigation,
+        activeColor: colorSet.primary,
       ),
       tabBuilder: (context, index) => CupertinoTabView(
         builder: (context) => widget.model.screens[index].rootWidget,

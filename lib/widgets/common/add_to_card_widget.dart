@@ -19,9 +19,10 @@ class AddToCarWidget extends StatefulWidget {
     this.menuItem,
     this.onChangeValue,
   })  : assert(
-            (promotion == null && menuItem != null) ||
-                (promotion != null && menuItem == null),
-            'nonNull should be only one from promotion and menuItem'),
+          (promotion == null && menuItem != null) ||
+              (promotion != null && menuItem == null),
+          'nonNull should be only one from promotion and menuItem',
+        ),
         super(key: key);
 
   @override
