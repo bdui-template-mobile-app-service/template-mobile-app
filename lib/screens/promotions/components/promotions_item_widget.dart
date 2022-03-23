@@ -43,7 +43,6 @@ class _PromotionsItemWidgetState extends State<PromotionsItemWidget> {
   Widget build(BuildContext context) {
     return ClipperContainer(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: Colors.blue,
       height: 150,
       borderRadius: BorderRadius.circular(10),
       child: Stack(

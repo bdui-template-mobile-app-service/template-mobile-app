@@ -21,6 +21,8 @@ class ColorSet {
   static const staticClear = Color.fromARGB(0, 0, 0, 0);
   Color get clear => staticClear;
 
+  final Color primary;
+
   final Color tabNavigation;
   final Color barNavigation;
 
@@ -36,6 +38,7 @@ class ColorSet {
   final Color secondaryText;
 
   const ColorSet({
+    required this.primary,
     required this.tabNavigation,
     required this.barNavigation,
     required this.separator,
@@ -48,7 +51,8 @@ class ColorSet {
     required this.secondaryText,
   });
 
-  ColorSet copyWith({Color? barNavigation}) => ColorSet(
+  ColorSet copyWith({Color? barNavigation, Color? primary}) => ColorSet(
+        primary: primary ?? this.primary,
         tabNavigation: tabNavigation,
         barNavigation: barNavigation ?? this.barNavigation,
         separator: separator,
@@ -74,6 +78,7 @@ class StandardColorSet {
   static final universalGrey = RGBColor.fromHex('#f2f1f6');
 
   static var light = ColorSet(
+    primary: Colors.blue,
     tabNavigation: white,
     barNavigation: white,
     separator: universalGrey,
@@ -87,6 +92,7 @@ class StandardColorSet {
   );
 
   static var dark = ColorSet(
+    primary: Colors.blue,
     tabNavigation: RGBColor.fromHex('#111111'),
     barNavigation: RGBColor.fromHex('#111111'),
     separator: universalGrey,

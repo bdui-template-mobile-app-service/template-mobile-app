@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:graduate_work/providers/colors_provider.dart';
 import 'package:graduate_work/widgets/standard/src/text.dart';
+import 'package:provider/provider.dart';
 
 class IncrementDecrementButtons extends StatelessWidget {
   final int value;
@@ -19,7 +21,7 @@ class IncrementDecrementButtons extends StatelessWidget {
       width: 150,
       height: 50,
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: context.watch<ColorsProvider>().colorSet.primary,
         borderRadius: BorderRadius.circular(10),
       ),
       child: value == 0 ? _buildTextState() : _buildButtonsState(),

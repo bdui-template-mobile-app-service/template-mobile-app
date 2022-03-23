@@ -9,10 +9,14 @@ import 'root_state_widgets/widgets_binding_handler.dart';
 void main() async {
   try {
     final aboutCompany = await RestClient.shared.fetchAboutCompanyInfo();
-    StandardColorSet.light = StandardColorSet.light
-        .copyWith(barNavigation: aboutCompany.primaryColor);
-    StandardColorSet.dark = StandardColorSet.dark
-        .copyWith(barNavigation: aboutCompany.primaryColor);
+    StandardColorSet.light = StandardColorSet.light.copyWith(
+      barNavigation: aboutCompany.primaryColor,
+      primary: aboutCompany.primaryColor,
+    );
+    StandardColorSet.dark = StandardColorSet.dark.copyWith(
+      barNavigation: aboutCompany.primaryColor,
+      primary: aboutCompany.primaryColor,
+    );
   } catch (e) {}
 
   runApp(const TopLevelProviders(
@@ -33,4 +37,15 @@ class MyApp extends StatelessWidget {
       home: RootTabBarWidget(),
     );
   }
+}
+
+Future<void> _updateColors() async {
+  final aboutCompany = await RestClient.shared.fetchAboutCompanyInfo();
+
+  StandardColorSet.light = StandardColorSet.light.copyWith(
+    barNavigation: aboutCompany.primaryColor,
+  );
+  StandardColorSet.dark = StandardColorSet.dark.copyWith(
+    barNavigation: aboutCompany.primaryColor,
+  );
 }

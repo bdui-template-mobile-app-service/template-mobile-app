@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:graduate_work/arch/utils.dart';
 import 'package:graduate_work/providers/card_provider.dart';
+import 'package:graduate_work/providers/colors_provider.dart';
 import 'package:graduate_work/screens/menu/components/menu_item_widget.dart';
 import 'package:graduate_work/screens/promotions/components/promotions_item_widget.dart';
 import 'package:graduate_work/widgets/common/add_to_card_widget.dart';
@@ -26,14 +27,18 @@ class _CardRootScreenState extends State<CardRootScreen> {
       appBarTitle: 'Корзина',
       body: cardProvider.menuItems.isEmpty && cardProvider.promotions.isEmpty
           ? _buildEmptyPlaceholder()
-          : _buildListView(cardProvider),
+          : _buildListView(context, cardProvider),
     );
   }
 
   Widget _buildEmptyPlaceholder() =>
       const Center(child: StandardText('В корзине ничего нет'));
 
-  Widget _buildListView(CardProvider cardProvider) => Stack(
+  Widget _buildListView(
+    BuildContext context,
+    CardProvider cardProvider,
+  ) =>
+      Stack(
         children: [
           ListView(
             padding: const EdgeInsets.only(bottom: 65),
@@ -48,6 +53,7 @@ class _CardRootScreenState extends State<CardRootScreen> {
             child: Padding(
               padding: const EdgeInsets.all(24),
               child: _buildSendOrderButton(
+                context,
                 cardProvider.menuItems,
                 cardProvider.promotions,
               ),
@@ -130,6 +136,7 @@ class _CardRootScreenState extends State<CardRootScreen> {
   }
 
   Widget _buildSendOrderButton(
+    BuildContext context,
     List<CardMenuItemsCountedModel> menuItems,
     List<CardPromotionsCountedModel> promotions,
   ) =>
@@ -138,7 +145,7 @@ class _CardRootScreenState extends State<CardRootScreen> {
         child: Container(
           height: 50,
           decoration: BoxDecoration(
-            color: Colors.blue,
+            color: context.watch<ColorsProvider>().colorSet.primary,
             borderRadius: BorderRadius.circular(10),
           ),
           child: const Center(
