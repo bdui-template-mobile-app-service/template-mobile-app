@@ -30,4 +30,7 @@ abstract class RestClient {
 
   @GET('/food_projects/')
   Future<AboutCompanyInfo> fetchAboutCompanyInfo();
+
+  // @POST('/card/order/')
+  // Future<>
 }

@@ -30,8 +30,8 @@ class AddToCarWidget extends StatefulWidget {
 }
 
 class _AddToCarWidgetState extends State<AddToCarWidget> {
-  CardMenuItemsCountedModel? savedCountedMenuItems;
-  CardPromotionsCountedModel? savedCountedPromotion;
+  CardMenuItemModel? savedCountedMenuItems;
+  CardPromotionModel? savedCountedPromotion;
 
   void updateCountedModels(BuildContext context) {
     final cardProvider = context.watch<CardProvider>();
@@ -75,12 +75,12 @@ class _AddToCarWidgetState extends State<AddToCarWidget> {
 
     if (widget.menuItem != null) {
       cardProvider.updateMenuItem(
-        CardMenuItemsCountedModel(widget.menuItem!, value),
+        CardMenuItemModel(widget.menuItem!, value),
       );
     }
     if (widget.promotion != null) {
       cardProvider.updatePromotion(
-        CardPromotionsCountedModel(widget.promotion!, value),
+        CardPromotionModel(widget.promotion!, value),
       );
     }
 

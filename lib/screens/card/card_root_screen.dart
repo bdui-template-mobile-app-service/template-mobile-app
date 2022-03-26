@@ -2,13 +2,15 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:graduate_work/arch/utils.dart';
 import 'package:graduate_work/providers/card_provider.dart';
-import 'package:graduate_work/providers/colors_provider.dart';
 import 'package:graduate_work/screens/menu/components/menu_item_widget.dart';
 import 'package:graduate_work/screens/promotions/components/promotions_item_widget.dart';
 import 'package:graduate_work/widgets/common/add_to_card_widget.dart';
+import 'package:graduate_work/widgets/common/text_button.dart';
 import 'package:graduate_work/widgets/standard/src/text.dart';
 import 'package:graduate_work/widgets/standard/standard_widgets.dart';
 import 'package:provider/provider.dart';
+
+import 'confirm_card_order_screen.dart';
 
 class CardRootScreen extends StatefulWidget {
   const CardRootScreen({Key? key}) : super(key: key);
@@ -62,7 +64,7 @@ class _CardRootScreenState extends State<CardRootScreen> {
         ],
       );
 
-  List<Widget> _menuItemOrders(List<CardMenuItemsCountedModel> menuItems) {
+  List<Widget> _menuItemOrders(List<CardMenuItemModel> menuItems) {
     if (menuItems.isEmpty) return [];
 
     return [
@@ -91,7 +93,7 @@ class _CardRootScreenState extends State<CardRootScreen> {
     ];
   }
 
-  List<Widget> _promotionOrders(List<CardPromotionsCountedModel> promotions) {
+  List<Widget> _promotionOrders(List<CardPromotionModel> promotions) {
     if (promotions.isEmpty) return [];
 
     return [
@@ -116,8 +118,8 @@ class _CardRootScreenState extends State<CardRootScreen> {
   }
 
   Widget _buildResultSum(
-    List<CardMenuItemsCountedModel> menuItems,
-    List<CardPromotionsCountedModel> promotions,
+    List<CardMenuItemModel> menuItems,
+    List<CardPromotionModel> promotions,
   ) {
     final sum = defaultPriceFormat.format(
         (menuItems.map((e) => e.count * e.model.price).sum +
@@ -137,31 +139,28 @@ class _CardRootScreenState extends State<CardRootScreen> {
 
   Widget _buildSendOrderButton(
     BuildContext context,
-    List<CardMenuItemsCountedModel> menuItems,
-    List<CardPromotionsCountedModel> promotions,
+    List<CardMenuItemModel> menuItems,
+    List<CardPromotionModel> promotions,
   ) =>
-      GestureDetector(
+      CommonTextButton(
+        title: 'Оформить',
         onTap: () => _sendOrder(menuItems, promotions),
-        child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-            color: context.watch<ColorsProvider>().colorSet.primary,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: const Center(
-            child: StandardText(
-              'Оформить',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
       );
 
   void _sendOrder(
-    List<CardMenuItemsCountedModel> menuItems,
-    List<CardPromotionsCountedModel> promotions,
+    List<CardMenuItemModel> menuItems,
+    List<CardPromotionModel> promotions,
   ) {
     print(menuItems);
     print(promotions);
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => ConfirmCardOrderScreen(
+          menuItems: menuItems,
+          promotions: promotions,
+        ),
+      ),
+    );
   }
 }

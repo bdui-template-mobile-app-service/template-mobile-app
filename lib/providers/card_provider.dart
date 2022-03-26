@@ -9,17 +9,17 @@ class CountedModel<T> {
   CountedModel(this.model, this.count);
 }
 
-typedef CardMenuItemsCountedModel = CountedModel<MenuItem>;
-typedef CardPromotionsCountedModel = CountedModel<PromotionItem>;
+typedef CardMenuItemModel = CountedModel<MenuItem>;
+typedef CardPromotionModel = CountedModel<PromotionItem>;
 
 class CardProvider extends ChangeNotifier {
-  List<CardMenuItemsCountedModel> _menuItems = [];
-  List<CardPromotionsCountedModel> _promotions = [];
+  List<CardMenuItemModel> _menuItems = [];
+  List<CardPromotionModel> _promotions = [];
 
-  List<CardMenuItemsCountedModel> get menuItems => _menuItems;
-  List<CardPromotionsCountedModel> get promotions => _promotions;
+  List<CardMenuItemModel> get menuItems => _menuItems;
+  List<CardPromotionModel> get promotions => _promotions;
 
-  void updateMenuItem(CardMenuItemsCountedModel countedMenuItem) {
+  void updateMenuItem(CardMenuItemModel countedMenuItem) {
     final index =
         _menuItems.indexWhere((e) => e.model.id == countedMenuItem.model.id);
 
@@ -35,7 +35,7 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updatePromotion(CardPromotionsCountedModel countedPromotion) {
+  void updatePromotion(CardPromotionModel countedPromotion) {
     final index =
         _promotions.indexWhere((e) => e.model.id == countedPromotion.model.id);
 
@@ -51,14 +51,14 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  CardMenuItemsCountedModel? counterMenuItemBy(MenuItem menuItem) {
+  CardMenuItemModel? counterMenuItemBy(MenuItem menuItem) {
     final index = _menuItems.indexWhere((e) => e.model.id == menuItem.id);
 
     if (index == -1) return null;
     return _menuItems[index];
   }
 
-  CardPromotionsCountedModel? counterPromotionItemBy(PromotionItem promotion) {
+  CardPromotionModel? counterPromotionItemBy(PromotionItem promotion) {
     final index = _promotions.indexWhere((e) => e.model.id == promotion.id);
 
     if (index == -1) return null;

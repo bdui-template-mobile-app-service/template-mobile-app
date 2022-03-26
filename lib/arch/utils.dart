@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 T? cast<T>(x) => x is T ? x : null;
 
-extension ListGetExtension<T> on List<T> {
+extension ExtendedList<T> on List<T> {
   T? safeGet(int index) =>
       index.isBetweenOrEqual(0, length - 1) ? this[index] : null;
 }
