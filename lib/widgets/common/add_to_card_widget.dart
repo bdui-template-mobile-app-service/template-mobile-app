@@ -4,6 +4,7 @@ import 'package:graduate_work/models/promotion_item.dart';
 import 'package:graduate_work/widgets/common/increment_decrement_button.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/card.dart';
 import '../../providers/card_provider.dart';
 
 class AddToCarWidget extends StatefulWidget {

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:graduate_work/models/about_company_info.dart';
+import 'package:graduate_work/models/card.dart';
 import 'package:graduate_work/models/menu_item.dart';
 import 'package:graduate_work/models/promotion_item.dart';
 import 'package:retrofit/retrofit.dart';
@@ -16,6 +17,7 @@ abstract class RestClient {
 
   static const _headers = {
     'Project-Id': '45cac181-7198-46f4-a3c9-e676275f66b2',
+    'Secret-Key': 'lolkek1',
   };
 
   // Generated
@@ -31,6 +33,8 @@ abstract class RestClient {
   @GET('/food_projects/')
   Future<AboutCompanyInfo> fetchAboutCompanyInfo();
 
-  // @POST('/card/order/')
-  // Future<>
+  @POST('/card/order/')
+  Future<void> postCardOrder(
+    @Body() CardOrderModel cardOrderModel,
+  );
 }

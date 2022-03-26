@@ -2,15 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduate_work/models/menu_item.dart';
 import 'package:graduate_work/models/promotion_item.dart';
 
-class CountedModel<T> {
-  final T model;
-  int count;
-
-  CountedModel(this.model, this.count);
-}
-
-typedef CardMenuItemModel = CountedModel<MenuItem>;
-typedef CardPromotionModel = CountedModel<PromotionItem>;
+import '../models/card.dart';
 
 class CardProvider extends ChangeNotifier {
   List<CardMenuItemModel> _menuItems = [];
@@ -63,5 +55,11 @@ class CardProvider extends ChangeNotifier {
 
     if (index == -1) return null;
     return _promotions[index];
+  }
+
+  void removeAll() {
+    _promotions = [];
+    _menuItems = [];
+    notifyListeners();
   }
 }

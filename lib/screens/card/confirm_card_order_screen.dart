@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:graduate_work/providers/card_provider.dart';
 import 'package:graduate_work/widgets/common/text_button.dart';
 import 'package:graduate_work/widgets/standard/standard_widgets.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:provider/provider.dart';
 
-import '../../providers/card_provider.dart';
+import '../../models/card.dart';
+import '../../networking/api/api.dart';
 
 class ConfirmCardOrderScreen extends StatefulWidget {
   final List<CardMenuItemModel> menuItems;
@@ -74,7 +77,7 @@ class _ConfirmCardOrderScreenState extends State<ConfirmCardOrderScreen> {
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: CommonTextButton(
               title: 'Оформить',
-              onTap: _sendOrder,
+              onTap: () => _sendOrder(context),
             ),
           ),
         ],
@@ -82,11 +85,37 @@ class _ConfirmCardOrderScreenState extends State<ConfirmCardOrderScreen> {
     );
   }
 
-  void _sendOrder() {
-    print(phone);
-    print(time);
-    print('lllksjdflksdfs');
+  void _sendOrder(BuildContext context) async {
+    try {
+      final response = await RestClient.shared.postCardOrder(
+        CardOrderModel(
+          time,
+          phone,
+          widget.menuItems,
+          widget.promotions,
+        ),
+      );
+      _showAlertWithTitle('Заказ оформлен, ожидайте звонка');
+      context.read<CardProvider>().removeAll();
+      Navigator.of(context).pop();
+    } catch (error) {
+      print(error);
+      _showAlertWithTitle('Произошла ошибка');
+    }
+  }
 
-    // RestClient.shared.
+  void _showAlertWithTitle(String title) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(title),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'OK'),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 }

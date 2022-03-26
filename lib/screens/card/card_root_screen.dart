@@ -10,6 +10,7 @@ import 'package:graduate_work/widgets/standard/src/text.dart';
 import 'package:graduate_work/widgets/standard/standard_widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/card.dart';
 import 'confirm_card_order_screen.dart';
 
 class CardRootScreen extends StatefulWidget {
