@@ -8,6 +8,9 @@ import 'root_state_widgets/widgets_binding_handler.dart';
 
 void main() async {
   try {
+    WidgetsFlutterBinding.ensureInitialized();
+    await RestClient.setShared();
+
     final aboutCompany = await RestClient.shared.fetchAboutCompanyInfo();
     StandardColorSet.light = StandardColorSet.light.copyWith(
       barNavigation: aboutCompany.primaryColor,

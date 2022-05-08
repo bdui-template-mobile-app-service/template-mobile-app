@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:graduate_work/models/about_company_info.dart';
 import 'package:graduate_work/models/card.dart';
 import 'package:graduate_work/models/menu_item.dart';
@@ -9,16 +12,23 @@ part 'api.g.dart';
 
 @RestApi(baseUrl: "http://localhost:8000/api/v1/")
 abstract class RestClient {
-  // Singleton
-  static final shared = () {
-    final dio = Dio(BaseOptions(headers: _headers));
-    return RestClient(dio);
-  }();
+  static RestClient? _shared;
+  static RestClient get shared => _shared!;
 
-  static const _headers = {
-    'Project-Id': '45cac181-7198-46f4-a3c9-e676275f66b2',
-    'Secret-Key': 'lolkek1',
-  };
+  static Future<void> setShared() async {
+    final jsonConfig = await rootBundle.loadString("assets/config.json");
+    final mapConfig = json.decode(jsonConfig);
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: mapConfig['baseUrl'] as String,
+        headers: {
+          'Project-Id': mapConfig['projectId'] as String,
+          'Secret-Key': mapConfig['secretKey'] as String,
+        },
+      ),
+    );
+    _shared = RestClient(dio);
+  }
 
   // Generated
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
