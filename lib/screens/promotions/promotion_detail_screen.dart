@@ -3,8 +3,11 @@ import 'package:graduate_work/arch/utils.dart';
 import 'package:graduate_work/models/promotion_item.dart';
 import 'package:graduate_work/screens/menu/components/menu_item_widget.dart';
 import 'package:graduate_work/widgets/common/add_to_card_widget.dart';
+import 'package:graduate_work/widgets/common/options_selection/options_selection_widget.dart';
 import 'package:graduate_work/widgets/standard/src/scaffold.dart';
 import 'package:graduate_work/widgets/standard/src/text.dart';
+
+import '../../models/option_item.dart';
 
 class PromotionDetailScreen extends StatefulWidget {
   final PromotionItem promotion;
@@ -19,12 +22,15 @@ class PromotionDetailScreen extends StatefulWidget {
 }
 
 class _PromotionDetailScreenState extends State<PromotionDetailScreen> {
+  Set<OptionItem> selectedOptions = {};
+
   @override
   Widget build(BuildContext context) {
     return StandardScaffold.standardWithStandardAppBar(
       context: context,
       appBarTitle: 'Акция',
       body: ListView(
+        padding: const EdgeInsets.only(bottom: 32),
         children: [
           Image.network(
             widget.promotion.imageUrl,
@@ -54,13 +60,6 @@ class _PromotionDetailScreenState extends State<PromotionDetailScreen> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: AddToCarWidget(promotion: widget.promotion),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: StandardText(widget.promotion.description),
           ),
           const Padding(
@@ -72,6 +71,28 @@ class _PromotionDetailScreenState extends State<PromotionDetailScreen> {
                 )),
           ),
           ...widget.promotion.menuItems.map((e) => MenuItemWidget.fromModel(e)),
+          if (widget.promotion.allowedOptions.isNotEmpty)
+            Padding(
+                padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                child: OptionSelectionWidget(
+                  allowedOptions: widget.promotion.allowedOptions,
+                  onUpdateSelectedOptions: (newSelected) {
+                    setState(() {
+                      selectedOptions = newSelected;
+                    });
+                  },
+                )),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AddToCarWidget(
+                promotion: widget.promotion,
+                selectedOptions: selectedOptions,
+                onlyTextStateAndShowSnack: true,
+              ),
+            ),
+          ),
         ],
       ),
     );

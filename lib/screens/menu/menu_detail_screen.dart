@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:graduate_work/models/menu_item.dart';
+import 'package:graduate_work/models/option_item.dart';
+import 'package:graduate_work/widgets/common/options_selection/options_selection_widget.dart';
 import 'package:graduate_work/widgets/standard/standard_widgets.dart';
 
 import '../../arch/utils.dart';
@@ -17,13 +20,24 @@ class MenuDetailScreen extends StatefulWidget {
   _MenuDetailScreenState createState() => _MenuDetailScreenState();
 }
 
+// show snackBar:
+//
+// ScaffoldMessenger.of(context).showSnackBar(
+// const SnackBar(
+// content: Text('Yay! A SnackBar!'),
+// ),
+// );
+
 class _MenuDetailScreenState extends State<MenuDetailScreen> {
+  Set<OptionItem> selectedOptions = {};
+
   @override
   Widget build(BuildContext context) {
     return StandardScaffold.standardWithStandardAppBar(
       context: context,
       appBarTitle: 'Позиция',
       body: ListView(
+        padding: const EdgeInsets.only(bottom: 32),
         children: [
           Image.network(
             widget.menuItem.imageUrl,
@@ -53,17 +67,35 @@ class _MenuDetailScreenState extends State<MenuDetailScreen> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: StandardText(widget.menuItem.description),
+          ),
+          if (widget.menuItem.allowedOptions.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: _buildOptionsList(),
+            ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 6, 16, 0),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: AddToCarWidget(menuItem: widget.menuItem),
+              child: AddToCarWidget(
+                menuItem: widget.menuItem,
+                selectedOptions: selectedOptions,
+                onlyTextStateAndShowSnack: true,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-            child: StandardText(widget.menuItem.description),
           ),
         ],
       ),
     );
   }
+
+  Widget _buildOptionsList() => OptionSelectionWidget(
+        allowedOptions: widget.menuItem.allowedOptions,
+        onUpdateSelectedOptions: (newSelected) {
+          setState(() {
+            selectedOptions = newSelected;
+          });
+        },
+      );
 }

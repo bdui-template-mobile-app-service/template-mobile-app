@@ -9,24 +9,32 @@ part of 'card.dart';
 CardMenuItemModel _$CardMenuItemModelFromJson(Map<String, dynamic> json) =>
     CardMenuItemModel(
       MenuItem.fromJson(json['menu_item'] as Map<String, dynamic>),
+      (json['selectedOptions'] as List<dynamic>)
+          .map((e) => OptionItem.fromJson(e as Map<String, dynamic>))
+          .toSet(),
       json['count'] as int,
     );
 
 Map<String, dynamic> _$CardMenuItemModelToJson(CardMenuItemModel instance) =>
     <String, dynamic>{
       'menu_item': instance.model,
+      'selectedOptions': instance.selectedOptions.toList(),
       'count': instance.count,
     };
 
 CardPromotionModel _$CardPromotionModelFromJson(Map<String, dynamic> json) =>
     CardPromotionModel(
       PromotionItem.fromJson(json['promotion'] as Map<String, dynamic>),
+      (json['selectedOptions'] as List<dynamic>)
+          .map((e) => OptionItem.fromJson(e as Map<String, dynamic>))
+          .toSet(),
       json['count'] as int,
     );
 
 Map<String, dynamic> _$CardPromotionModelToJson(CardPromotionModel instance) =>
     <String, dynamic>{
       'promotion': instance.model,
+      'selectedOptions': instance.selectedOptions.toList(),
       'count': instance.count,
     };
 

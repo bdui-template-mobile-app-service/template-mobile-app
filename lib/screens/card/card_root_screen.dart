@@ -2,15 +2,14 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:graduate_work/arch/utils.dart';
 import 'package:graduate_work/providers/card_provider.dart';
-import 'package:graduate_work/screens/menu/components/menu_item_widget.dart';
 import 'package:graduate_work/screens/promotions/components/promotions_item_widget.dart';
 import 'package:graduate_work/widgets/common/add_to_card_widget.dart';
 import 'package:graduate_work/widgets/common/text_button.dart';
-import 'package:graduate_work/widgets/standard/src/text.dart';
 import 'package:graduate_work/widgets/standard/standard_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/card.dart';
+import '../menu/components/menu_item_widget.dart';
 import 'confirm_card_order_screen.dart';
 
 class CardRootScreen extends StatefulWidget {
@@ -85,7 +84,10 @@ class _CardRootScreenState extends State<CardRootScreen> {
               e.model,
               replacingDescriptionWidget: Align(
                 alignment: Alignment.centerRight,
-                child: AddToCarWidget(menuItem: e.model),
+                child: AddToCarWidget(
+                  menuItem: e.model,
+                  selectedOptions: e.selectedOptions,
+                ),
               ),
             ),
           ],
@@ -111,7 +113,10 @@ class _CardRootScreenState extends State<CardRootScreen> {
               alignment: Alignment.bottomRight,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 8, right: 8),
-                child: AddToCarWidget(promotion: e.model),
+                child: AddToCarWidget(
+                  promotion: e.model,
+                  selectedOptions: e.selectedOptions,
+                ),
               ),
             ),
           )),

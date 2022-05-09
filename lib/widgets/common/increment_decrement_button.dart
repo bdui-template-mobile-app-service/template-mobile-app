@@ -5,12 +5,14 @@ import 'package:provider/provider.dart';
 
 class IncrementDecrementButtons extends StatelessWidget {
   final int value;
+  final bool onlyTextStateAndShowSnack;
   final void Function() onIncrement;
   final void Function() onDecrement;
 
   const IncrementDecrementButtons({
     Key? key,
     required this.value,
+    this.onlyTextStateAndShowSnack = false,
     required this.onIncrement,
     required this.onDecrement,
   }) : super(key: key);
@@ -24,7 +26,9 @@ class IncrementDecrementButtons extends StatelessWidget {
         color: context.watch<ColorsProvider>().colorSet.primary,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: value == 0 ? _buildTextState() : _buildButtonsState(),
+      child: (value == 0 || onlyTextStateAndShowSnack)
+          ? _buildTextState()
+          : _buildButtonsState(),
     );
   }
 

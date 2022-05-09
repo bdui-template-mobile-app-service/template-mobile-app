@@ -1,3 +1,5 @@
+import 'package:graduate_work/models/abstract_classes.dart';
+import 'package:graduate_work/models/option_item.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'menu_item.dart';
@@ -6,12 +8,16 @@ import 'promotion_item.dart';
 part 'card.g.dart';
 
 @JsonSerializable()
-class CardMenuItemModel {
+class CardMenuItemModel implements CardPositionItem {
+  @override
   @JsonKey(name: 'menu_item')
   final MenuItem model;
+  @override
+  final Set<OptionItem> selectedOptions;
+  @override
   int count;
 
-  CardMenuItemModel(this.model, this.count);
+  CardMenuItemModel(this.model, this.selectedOptions, this.count);
 
   factory CardMenuItemModel.fromJson(Map<String, dynamic> json) =>
       _$CardMenuItemModelFromJson(json);
@@ -19,15 +25,23 @@ class CardMenuItemModel {
         'menu_item': model.id,
         'count': count,
       };
+
+  @override
+  String toString() =>
+      "CardMenuItemModel(${model.id}, ${selectedOptions.map((e) => e.id)}, $count)";
 }
 
 @JsonSerializable()
-class CardPromotionModel {
+class CardPromotionModel implements CardPositionItem {
+  @override
   @JsonKey(name: 'promotion')
   final PromotionItem model;
+  @override
+  final Set<OptionItem> selectedOptions;
+  @override
   int count;
 
-  CardPromotionModel(this.model, this.count);
+  CardPromotionModel(this.model, this.selectedOptions, this.count);
 
   factory CardPromotionModel.fromJson(Map<String, dynamic> json) =>
       _$CardPromotionModelFromJson(json);
@@ -35,6 +49,10 @@ class CardPromotionModel {
         'promotion': model.id,
         'count': count,
       };
+
+  @override
+  String toString() =>
+      "CardPromotionModel(${model.id}, ${selectedOptions.map((e) => e.id)}, $count)";
 }
 
 @JsonSerializable()

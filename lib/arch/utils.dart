@@ -9,6 +9,11 @@ extension ExtendedList<T> on List<T> {
       index.isBetweenOrEqual(0, length - 1) ? this[index] : null;
 }
 
+extension ExtendedSet<T> on Set<T> {
+  bool isEqualToOther(Set<T> set) =>
+      this.difference(set).isEmpty && set.difference(this).isEmpty;
+}
+
 extension Range on num {
   bool isBetween(num from, num to) => from < this && this < to;
   bool isBetweenOrEqual(num from, num to) => from <= this && this <= to;

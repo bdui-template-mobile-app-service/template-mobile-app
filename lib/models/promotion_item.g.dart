@@ -17,6 +17,9 @@ PromotionItem _$PromotionItemFromJson(Map<String, dynamic> json) =>
       (json['menu_items'] as List<dynamic>)
           .map((e) => MenuItem.fromJson(e as Map<String, dynamic>))
           .toList(),
+      (json['allowed_options'] as List<dynamic>)
+          .map((e) => OptionItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$PromotionItemToJson(PromotionItem instance) =>
@@ -27,5 +30,6 @@ Map<String, dynamic> _$PromotionItemToJson(PromotionItem instance) =>
       'price': instance.price,
       'image': instance.imageUrl,
       'over_image_text_color': instance.stringTextColor,
+      'allowed_options': instance.allowedOptions,
       'menu_items': instance.menuItems,
     };
