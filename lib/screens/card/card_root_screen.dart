@@ -48,7 +48,6 @@ class _CardRootScreenState extends State<CardRootScreen> {
             children: [
               ..._menuItemOrders(cardProvider.menuItems),
               ..._promotionOrders(cardProvider.promotions),
-              _buildResultSum(cardProvider.menuItems, cardProvider.promotions),
             ],
           ),
           Align(
@@ -126,40 +125,24 @@ class _CardRootScreenState extends State<CardRootScreen> {
     ];
   }
 
-  Widget _buildResultSum(
-    List<CardMenuItemModel> menuItems,
-    List<CardPromotionModel> promotions,
-  ) {
-    final sum = defaultPriceFormat.format(
-        (menuItems.map((e) => calculatePrice(e)).sum +
-            promotions.map((e) => calculatePrice(e)).sum));
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          StandardText(
-            'Итоговая сумма: $sum',
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-          ),
-        ],
-      ),
-    );
-  }
-
-  double calculatePrice(CardPositionItem cardPositionItem) =>
-      cardPositionItem.count *
-      (cardPositionItem.model.price +
-          cardPositionItem.selectedOptions.map((e) => e.price).sum);
-
   Widget _buildSendOrderButton(
     BuildContext context,
     List<CardMenuItemModel> menuItems,
     List<CardPromotionModel> promotions,
-  ) =>
-      CommonTextButton(
-        title: 'Оформить',
-        onTap: () => _sendOrder(menuItems, promotions),
-      );
+  ) {
+    final sum = defaultPriceFormat.format(
+        (menuItems.map((e) => _calculatePrice(e)).sum +
+            promotions.map((e) => _calculatePrice(e)).sum));
+    return CommonTextButton(
+      title: 'Оформить ($sum)',
+      onTap: () => _sendOrder(menuItems, promotions),
+    );
+  }
+
+  double _calculatePrice(CardPositionItem cardPositionItem) =>
+      cardPositionItem.count *
+      (cardPositionItem.model.price +
+          cardPositionItem.selectedOptions.map((e) => e.price).sum);
 
   void _sendOrder(
     List<CardMenuItemModel> menuItems,
