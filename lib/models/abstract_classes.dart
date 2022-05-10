@@ -1,14 +1,10 @@
 import 'option_item.dart';
 
-abstract class Identifiable {
+abstract class PositionItem {
   String get id;
-}
-
-abstract class Namable {
   String get name;
+  double get price;
 }
-
-abstract class PositionItem implements Identifiable, Namable {}
 
 abstract class CardPositionItem {
   PositionItem get model;

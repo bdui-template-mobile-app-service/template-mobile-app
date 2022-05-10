@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:graduate_work/arch/utils.dart';
+import 'package:graduate_work/models/abstract_classes.dart';
 import 'package:graduate_work/providers/card_provider.dart';
 import 'package:graduate_work/screens/promotions/components/promotions_item_widget.dart';
 import 'package:graduate_work/widgets/common/add_to_card_widget.dart';
@@ -110,6 +111,7 @@ class _CardRootScreenState extends State<CardRootScreen> {
       ),
       ...promotions.map((e) => PromotionsItemWidget.fromModel(
             e.model,
+            options: e.selectedOptions.toList(),
             additionalBottomWidget: Align(
               alignment: Alignment.bottomRight,
               child: Padding(
@@ -129,8 +131,8 @@ class _CardRootScreenState extends State<CardRootScreen> {
     List<CardPromotionModel> promotions,
   ) {
     final sum = defaultPriceFormat.format(
-        (menuItems.map((e) => e.count * e.model.price).sum +
-            promotions.map((e) => e.count * e.model.price).sum));
+        (menuItems.map((e) => calculatePrice(e)).sum +
+            promotions.map((e) => calculatePrice(e)).sum));
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Row(
@@ -143,6 +145,11 @@ class _CardRootScreenState extends State<CardRootScreen> {
       ),
     );
   }
+
+  double calculatePrice(CardPositionItem cardPositionItem) =>
+      cardPositionItem.count *
+      (cardPositionItem.model.price +
+          cardPositionItem.selectedOptions.map((e) => e.price).sum);
 
   Widget _buildSendOrderButton(
     BuildContext context,

@@ -12,6 +12,7 @@ class MenuItem implements PositionItem {
   final String name;
 
   final String description;
+  @override
   final double price;
   @JsonKey(name: 'image')
   final String imageUrl;
