@@ -82,6 +82,7 @@ class _CardRootScreenState extends State<CardRootScreen> {
           children: [
             MenuItemWidget.fromModel(
               e.model,
+              options: e.selectedOptions.toList(),
               replacingDescriptionWidget: Align(
                 alignment: Alignment.centerRight,
                 child: AddToCarWidget(
