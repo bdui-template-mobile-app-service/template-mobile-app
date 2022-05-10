@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduate_work/arch/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/colors_provider.dart';
@@ -7,11 +8,13 @@ import '../../standard/src/text.dart';
 
 class OptionItemWidget extends StatelessWidget {
   final String name;
+  final double price;
   final bool isSelected;
 
   const OptionItemWidget({
     Key? key,
     required this.name,
+    required this.price,
     required this.isSelected,
   }) : super(key: key);
 
@@ -32,6 +35,10 @@ class OptionItemWidget extends StatelessWidget {
             Align(
               child: StandardText(name),
               alignment: Alignment.topLeft,
+            ),
+            Align(
+              child: StandardText(defaultPriceFormat.format(price)),
+              alignment: Alignment.bottomLeft,
             ),
             Visibility(
               visible: isSelected,

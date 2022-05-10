@@ -44,6 +44,7 @@ class _OptionSelectionWidgetState extends State<OptionSelectionWidget> {
                 onTap: () => didTapOptionItem(atIndex: index),
                 child: OptionItemWidget(
                   name: option.name,
+                  price: option.price,
                   isSelected: selectedOptions.contains(option),
                 ),
               );
