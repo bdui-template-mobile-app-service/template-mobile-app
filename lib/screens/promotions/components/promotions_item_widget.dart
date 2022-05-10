@@ -9,7 +9,7 @@ import '../../../providers/colors_provider.dart';
 import '../../../widgets/custom/custom.dart';
 import '../../../widgets/standard/standard_widgets.dart';
 
-class PromotionsItemWidget extends StatefulWidget {
+class PromotionsItemWidget extends StatelessWidget {
   final String title;
   final String price;
   final String imageUrl;
@@ -43,11 +43,6 @@ class PromotionsItemWidget extends StatefulWidget {
   }
 
   @override
-  State<PromotionsItemWidget> createState() => _PromotionsItemWidgetState();
-}
-
-class _PromotionsItemWidgetState extends State<PromotionsItemWidget> {
-  @override
   Widget build(BuildContext context) {
     final colorSet = context.watch<ColorsProvider>().colorSet;
 
@@ -63,7 +58,7 @@ class _PromotionsItemWidgetState extends State<PromotionsItemWidget> {
             child: Stack(
               children: [
                 Image.network(
-                  widget.imageUrl,
+                  imageUrl,
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: double.infinity,
@@ -77,22 +72,22 @@ class _PromotionsItemWidgetState extends State<PromotionsItemWidget> {
                       Row(
                         children: [
                           Expanded(
-                            child: StandardText(widget.title,
+                            child: StandardText(title,
                                 softWrap: false,
                                 overflow: TextOverflow.fade,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
-                                  color: widget.textColor,
+                                  color: textColor,
                                 )),
                           ),
                           const SizedBox(width: 10),
                           StandardText(
-                            widget.price,
+                            price,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
-                              color: widget.textColor,
+                              color: textColor,
                             ),
                           ),
                         ],
@@ -100,13 +95,12 @@ class _PromotionsItemWidgetState extends State<PromotionsItemWidget> {
                     ],
                   ),
                 ),
-                if (widget.additionalBottomWidget != null)
-                  widget.additionalBottomWidget!,
+                if (additionalBottomWidget != null) additionalBottomWidget!,
               ],
             ),
           ),
-          if (widget.options != null && widget.options!.isNotEmpty)
-            OptionsToPositionItemWidget(options: widget.options!),
+          if (options != null && options!.isNotEmpty)
+            OptionsToPositionItemWidget(options: options!),
         ],
       ),
     );
