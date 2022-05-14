@@ -43,6 +43,8 @@ dependencies:
   json_annotation: ^4.4.0
   mask_text_input_formatter: ^2.1.0
   equatable: ^2.0.3
+  url_launcher: ^6.1.2
+  grouped_list: ^4.2.0
 
 dev_dependencies:
   flutter_test:

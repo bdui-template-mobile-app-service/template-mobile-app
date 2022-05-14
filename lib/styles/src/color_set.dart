@@ -37,6 +37,9 @@ class ColorSet {
   final Color primaryText;
   final Color secondaryText;
 
+  /// Special colors
+  final Color color2Gis;
+
   const ColorSet({
     required this.primary,
     required this.tabNavigation,
@@ -49,6 +52,7 @@ class ColorSet {
     required this.secondary2,
     required this.primaryText,
     required this.secondaryText,
+    required this.color2Gis,
   });
 
   ColorSet copyWith({Color? barNavigation, Color? primary}) => ColorSet(
@@ -63,6 +67,7 @@ class ColorSet {
         secondary2: secondary2,
         primaryText: primaryText,
         secondaryText: secondaryText,
+        color2Gis: color2Gis,
       );
 
   factory ColorSet.standardLight() => StandardColorSet.light;
@@ -77,6 +82,8 @@ class StandardColorSet {
   static final white = RGBColor.fromHex('#FFFFFF');
   static final universalGrey = RGBColor.fromHex('#f2f1f6');
 
+  static final color2Gis = RGBColor.fromHex('#4b9229');
+
   static var light = ColorSet(
     primary: Colors.blue,
     tabNavigation: white,
@@ -89,6 +96,7 @@ class StandardColorSet {
     secondary2: white,
     primaryText: black,
     secondaryText: black,
+    color2Gis: color2Gis,
   );
 
   static var dark = ColorSet(
@@ -103,5 +111,6 @@ class StandardColorSet {
     secondary2: RGBColor.fromHex('#616161'),
     primaryText: white,
     secondaryText: universalGrey,
+    color2Gis: color2Gis,
   );
 }

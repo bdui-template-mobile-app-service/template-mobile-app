@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:graduate_work/models/about_company_info.dart';
 import 'package:graduate_work/networking/api/api.dart';
+import 'package:graduate_work/providers/colors_provider.dart';
 import 'package:graduate_work/screens/about_company/components/logo_widget.dart';
 import 'package:graduate_work/screens/settings/settings_root_screen.dart';
 import 'package:graduate_work/widgets/standard/src/app_bar.dart';
 import 'package:graduate_work/widgets/standard/src/scaffold.dart';
 import 'package:graduate_work/widgets/standard/src/text.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutCompanyRootScreen extends StatefulWidget {
   const AboutCompanyRootScreen({Key? key}) : super(key: key);
@@ -77,14 +80,45 @@ class _AboutCompanyRootScreenState extends State<AboutCompanyRootScreen> {
           ),
           const SizedBox(height: 16),
           StandardText(
-            'Адрес: ${info.address}',
-            style: const TextStyle(fontSize: 16),
-          ),
-          const SizedBox(height: 16),
-          StandardText(
             info.description,
             style: const TextStyle(fontSize: 16),
           ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              _build2gisLinkWidget(info.address, info.linkTo2gis),
+              const Spacer(),
+            ],
+          ),
         ],
+      );
+
+  Widget _build2gisLinkWidget(String address, String linkTo2gis) =>
+      GestureDetector(
+        onTap: () => launchUrl(Uri.parse(linkTo2gis)),
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: context.watch<ColorsProvider>().colorSet.color2Gis,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Center(
+            child: Row(
+              children: [
+                StandardText(
+                  address,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                const SizedBox(width: 5),
+                SizedBox(
+                  height: 25,
+                  child: Image.asset(
+                    'assets/2gis_logo.png',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       );
 }

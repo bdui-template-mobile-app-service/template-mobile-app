@@ -13,6 +13,7 @@ AboutCompanyInfo _$AboutCompanyInfoFromJson(Map<String, dynamic> json) =>
       json['address'] as String,
       json['primary_app_color'] as String,
       json['logo_image'] as String,
+      json['link_to_2gis'] as String,
     );
 
 Map<String, dynamic> _$AboutCompanyInfoToJson(AboutCompanyInfo instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$AboutCompanyInfoToJson(AboutCompanyInfo instance) =>
       'address': instance.address,
       'primary_app_color': instance.stringPrimaryColor,
       'logo_image': instance.logoImage,
+      'link_to_2gis': instance.linkTo2gis,
     };

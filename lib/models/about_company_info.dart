@@ -15,6 +15,8 @@ class AboutCompanyInfo {
   final String stringPrimaryColor;
   @JsonKey(name: 'logo_image')
   final String logoImage;
+  @JsonKey(name: 'link_to_2gis')
+  final String linkTo2gis;
 
   Color get primaryColor => RGBColor.fromHex(stringPrimaryColor);
 
@@ -24,6 +26,7 @@ class AboutCompanyInfo {
     this.address,
     this.stringPrimaryColor,
     this.logoImage,
+    this.linkTo2gis,
   );
 
   factory AboutCompanyInfo.fromJson(Map<String, dynamic> json) =>

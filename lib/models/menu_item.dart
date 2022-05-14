@@ -18,9 +18,10 @@ class MenuItem implements PositionItem {
   final String imageUrl;
   @JsonKey(name: 'allowed_options')
   final List<OptionItem> allowedOptions;
+  final String? type;
 
   MenuItem(this.id, this.name, this.description, this.price, this.imageUrl,
-      this.allowedOptions);
+      this.allowedOptions, this.type);
 
   factory MenuItem.fromJson(Map<String, dynamic> json) =>
       _$MenuItemFromJson(json);

@@ -15,6 +15,7 @@ MenuItem _$MenuItemFromJson(Map<String, dynamic> json) => MenuItem(
       (json['allowed_options'] as List<dynamic>)
           .map((e) => OptionItem.fromJson(e as Map<String, dynamic>))
           .toList(),
+      json['type'] as String?,
     );
 
 Map<String, dynamic> _$MenuItemToJson(MenuItem instance) => <String, dynamic>{
@@ -24,4 +25,5 @@ Map<String, dynamic> _$MenuItemToJson(MenuItem instance) => <String, dynamic>{
       'price': instance.price,
       'image': instance.imageUrl,
       'allowed_options': instance.allowedOptions,
+      'type': instance.type,
     };
