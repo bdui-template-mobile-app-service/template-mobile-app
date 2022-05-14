@@ -23,6 +23,7 @@ class CardMenuItemModel implements CardPositionItem {
       _$CardMenuItemModelFromJson(json);
   Map<String, dynamic> toJson() => {
         'menu_item': model.id,
+        'selected_options': selectedOptions.map((e) => e.id).toList(),
         'count': count,
       };
 
@@ -47,6 +48,7 @@ class CardPromotionModel implements CardPositionItem {
       _$CardPromotionModelFromJson(json);
   Map<String, dynamic> toJson() => {
         'promotion': model.id,
+        'selected_options': selectedOptions.map((e) => e.id).toList(),
         'count': count,
       };
 
