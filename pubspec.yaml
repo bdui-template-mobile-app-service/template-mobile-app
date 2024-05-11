@@ -45,6 +45,7 @@ dependencies:
   equatable: ^2.0.3
   url_launcher: ^6.1.2
   grouped_list: ^4.2.0
+  logger: ^2.2.0
 
 dev_dependencies:
   flutter_test:

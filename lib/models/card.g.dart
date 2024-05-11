@@ -12,7 +12,7 @@ CardMenuItemModel _$CardMenuItemModelFromJson(Map<String, dynamic> json) =>
       (json['selectedOptions'] as List<dynamic>)
           .map((e) => OptionItem.fromJson(e as Map<String, dynamic>))
           .toSet(),
-      json['count'] as int,
+      (json['count'] as num).toInt(),
     );
 
 Map<String, dynamic> _$CardMenuItemModelToJson(CardMenuItemModel instance) =>
@@ -28,7 +28,7 @@ CardPromotionModel _$CardPromotionModelFromJson(Map<String, dynamic> json) =>
       (json['selectedOptions'] as List<dynamic>)
           .map((e) => OptionItem.fromJson(e as Map<String, dynamic>))
           .toSet(),
-      json['count'] as int,
+      (json['count'] as num).toInt(),
     );
 
 Map<String, dynamic> _$CardPromotionModelToJson(CardPromotionModel instance) =>

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduate_work/arch/utils.dart';
+import 'package:graduate_work/ui_configuration_mapper/components/components_factory/components_factory.dart';
 import 'package:graduate_work/widgets/common/options_selection/options_to_position_item_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +11,8 @@ import '../../../widgets/custom/src/clipped_container.dart';
 import '../../../widgets/standard/src/text.dart';
 
 class MenuItemWidget extends StatelessWidget {
+  final Map<String, dynamic>? uiConfiguration;
+
   final String title;
   final String description;
   final String price;
@@ -19,6 +22,7 @@ class MenuItemWidget extends StatelessWidget {
 
   const MenuItemWidget({
     Key? key,
+    required this.uiConfiguration,
     required this.title,
     required this.description,
     required this.price,
@@ -33,6 +37,7 @@ class MenuItemWidget extends StatelessWidget {
     List<OptionItem>? options,
   }) {
     return MenuItemWidget(
+      uiConfiguration: model.uiConfiguration,
       title: model.name,
       description: model.description,
       price: defaultPriceFormat.format(model.price),
@@ -44,6 +49,23 @@ class MenuItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (uiConfiguration != null) {
+      final remoteWidget = ComponentsFactory.makeComponentFromJson(
+        uiConfiguration!,
+        {
+          "IMAGE_URL": imageUrl,
+          "TITLE": title,
+          "SUBTITLE": description,
+        },
+      );
+      final widget = remoteWidget ?? Text("kek");
+
+      return Container(
+        margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        child: widget,
+      );
+    }
+
     final colorSet = context.watch<ColorsProvider>().colorSet;
 
     return ClipperContainer(

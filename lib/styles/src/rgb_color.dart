@@ -4,11 +4,11 @@ import 'dart:ui';
 
 extension RGBColor on Color {
   static Color fromRGB(int r, int g, int b) => Color.fromARGB(
-    255,
-    _correctValue(r),
-    _correctValue(g),
-    _correctValue(b),
-  );
+        255,
+        _correctValue(r),
+        _correctValue(g),
+        _correctValue(b),
+      );
   static Color fromHex(String hexColor) => Color(_getColorFromHex(hexColor));
 
   // MARK: - Private methods
@@ -21,4 +21,8 @@ extension RGBColor on Color {
     }
     return int.parse(hexColor, radix: 16);
   }
+}
+
+extension ColorFromString on String {
+  Color get toHexColor => RGBColor.fromHex(this);
 }

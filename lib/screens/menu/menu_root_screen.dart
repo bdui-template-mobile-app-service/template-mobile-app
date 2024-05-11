@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduate_work/networking/api/api.dart';
 import 'package:graduate_work/screens/menu/components/menu_item_widget.dart';
 import 'package:graduate_work/screens/menu/menu_detail_screen.dart';
+import 'package:graduate_work/ui_configuration_mapper/components/components_factory/components_factory.dart';
 import 'package:grouped_list/grouped_list.dart';
 
 import '../../models/menu_item.dart';
@@ -52,15 +53,6 @@ class _MenuRootScreenState extends State<MenuRootScreen> {
             style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           ),
         ),
-      );
-
-  Widget _buildListView(List<MenuItem> menuItems) => ListView.builder(
-        itemBuilder: (context, index) => GestureDetector(
-          child: MenuItemWidget.fromModel(menuItems[index]),
-          onTap: () => _showDetail(context, menuItems[index]),
-        ),
-        itemCount: menuItems.length,
-        padding: const EdgeInsets.symmetric(vertical: 8),
       );
 
   void _showDetail(BuildContext context, MenuItem menuItem) {
