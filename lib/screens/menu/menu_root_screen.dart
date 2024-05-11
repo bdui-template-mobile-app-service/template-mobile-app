@@ -18,7 +18,7 @@ class _MenuRootScreenState extends State<MenuRootScreen> {
   @override
   Widget build(BuildContext context) {
     return StandardScaffold.standardWithStandardAppBar(
-      appBarTitle: 'Menu',
+      appBarTitle: 'Меню',
       context: context,
       body: FutureBuilder<List<MenuItem>?>(
         future: fetchMenuItems(),

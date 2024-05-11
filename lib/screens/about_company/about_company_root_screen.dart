@@ -24,7 +24,7 @@ class _AboutCompanyRootScreenState extends State<AboutCompanyRootScreen> {
         context: context,
         appBar: StandardAppBar.standard(
             context: context,
-            title: const Text('About'),
+            title: const Text('Инфо'),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 8),

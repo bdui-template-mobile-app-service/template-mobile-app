@@ -17,7 +17,7 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
   @override
   Widget build(BuildContext context) {
     return StandardScaffold.standardWithStandardAppBar(
-      appBarTitle: 'Promotions',
+      appBarTitle: 'Акции',
       context: context,
       body: FutureBuilder<List<PromotionItem>?>(
         future: _fetchPromotions(),
