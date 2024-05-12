@@ -22,9 +22,8 @@ class OptionsToPositionItemWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(height: 2, color: colorSet.separator),
-          const SizedBox(height: 8),
           ...options
               .map((e) => StandardText(
                   '+ ${e.name} ${defaultPriceFormat.format(e.price)}'))

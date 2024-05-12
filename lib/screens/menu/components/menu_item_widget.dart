@@ -17,33 +17,26 @@ class MenuItemWidget extends StatelessWidget {
   final String description;
   final String price;
   final String imageUrl;
-  final List<OptionItem>? options;
-  final Widget? replacingDescriptionWidget;
+  final bool useMargin;
 
-  const MenuItemWidget({
-    Key? key,
-    required this.uiConfiguration,
-    required this.title,
-    required this.description,
-    required this.price,
-    required this.imageUrl,
-    this.options,
-    this.replacingDescriptionWidget,
-  }) : super(key: key);
+  const MenuItemWidget(
+      {Key? key,
+      required this.uiConfiguration,
+      required this.title,
+      required this.description,
+      required this.price,
+      required this.imageUrl,
+      required this.useMargin})
+      : super(key: key);
 
-  factory MenuItemWidget.fromModel(
-    MenuItem model, {
-    Widget? replacingDescriptionWidget,
-    List<OptionItem>? options,
-  }) {
+  factory MenuItemWidget.fromModel(MenuItem model, {bool? useMargin}) {
     return MenuItemWidget(
       uiConfiguration: model.uiConfiguration,
       title: model.name,
       description: model.description,
       price: defaultPriceFormat.format(model.price),
       imageUrl: model.imageUrl,
-      options: options,
-      replacingDescriptionWidget: replacingDescriptionWidget,
+      useMargin: useMargin ?? true,
     );
   }
 
@@ -61,70 +54,71 @@ class MenuItemWidget extends StatelessWidget {
       final widget = remoteWidget ?? Text("kek");
 
       return Container(
-        margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        margin: useMargin ? const EdgeInsets.fromLTRB(16, 8, 16, 8) : null,
         child: widget,
       );
     }
-
-    final colorSet = context.watch<ColorsProvider>().colorSet;
-
-    return ClipperContainer(
-      color: colorSet.content,
-      margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: colorSet.separator, width: 0.2),
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                width: 96,
-                height: 96,
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                              child: StandardText(title,
-                                  softWrap: false,
-                                  overflow: TextOverflow.fade,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 17,
-                                  ))),
-                          const SizedBox(width: 10),
-                          StandardText(
-                            price,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      (replacingDescriptionWidget != null)
-                          ? replacingDescriptionWidget!
-                          : StandardText(description, maxLines: 3),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          if (options != null && options!.isNotEmpty)
-            OptionsToPositionItemWidget(options: options!),
-        ],
-      ),
-    );
+    return Text("kek");
+    //
+    // final colorSet = context.watch<ColorsProvider>().colorSet;
+    //
+    // return ClipperContainer(
+    //   color: colorSet.content,
+    //   margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+    //   borderRadius: BorderRadius.circular(10),
+    //   border: Border.all(color: colorSet.separator, width: 0.2),
+    //   child: Column(
+    //     children: [
+    //       Row(
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         children: [
+    //           Image.network(
+    //             imageUrl,
+    //             fit: BoxFit.cover,
+    //             width: 96,
+    //             height: 96,
+    //           ),
+    //           Expanded(
+    //             child: Padding(
+    //               padding: const EdgeInsets.all(8),
+    //               child: Column(
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 mainAxisSize: MainAxisSize.min,
+    //                 children: [
+    //                   Row(
+    //                     children: [
+    //                       Expanded(
+    //                           child: StandardText(title,
+    //                               softWrap: false,
+    //                               overflow: TextOverflow.fade,
+    //                               style: const TextStyle(
+    //                                 fontWeight: FontWeight.bold,
+    //                                 fontSize: 17,
+    //                               ))),
+    //                       const SizedBox(width: 10),
+    //                       StandardText(
+    //                         price,
+    //                         style: const TextStyle(
+    //                           fontWeight: FontWeight.bold,
+    //                           fontSize: 20,
+    //                         ),
+    //                       ),
+    //                     ],
+    //                   ),
+    //                   const SizedBox(height: 5),
+    //                   (replacingDescriptionWidget != null)
+    //                       ? replacingDescriptionWidget!
+    //                       : StandardText(description, maxLines: 3),
+    //                 ],
+    //               ),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //       if (options != null && options!.isNotEmpty)
+    //         OptionsToPositionItemWidget(options: options!),
+    //     ],
+    //   ),
+    // );
   }
 }

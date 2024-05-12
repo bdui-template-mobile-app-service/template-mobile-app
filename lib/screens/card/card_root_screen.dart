@@ -10,6 +10,7 @@ import 'package:graduate_work/widgets/standard/standard_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/card.dart';
+import '../../widgets/common/options_selection/options_to_position_item_widget.dart';
 import '../menu/components/menu_item_widget.dart';
 import 'confirm_card_order_screen.dart';
 
@@ -76,22 +77,32 @@ class _CardRootScreenState extends State<CardRootScreen> {
         ),
       ),
       ...menuItems.map(
-        (e) => Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            MenuItemWidget.fromModel(
-              e.model,
-              options: e.selectedOptions.toList(),
-              replacingDescriptionWidget: Align(
-                alignment: Alignment.centerRight,
-                child: AddToCarWidget(
-                  menuItem: e.model,
-                  selectedOptions: e.selectedOptions,
+        (e) => Container(
+          margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                child: MenuItemWidget.fromModel(
+                  e.model,
+                  useMargin: false,
                 ),
+                width: double.infinity,
               ),
-            ),
-          ],
+              if (e.selectedOptions.isNotEmpty)
+                OptionsToPositionItemWidget(
+                    options: e.selectedOptions.toList()),
+              const SizedBox(height: 8),
+              AddToCarWidget(
+                menuItem: e.model,
+                selectedOptions: e.selectedOptions,
+              ),
+              const SizedBox(height: 8),
+              Container(height: 2, color: Colors.grey),
+              const SizedBox(height: 4),
+            ],
+          ),
         ),
       ),
     ];
