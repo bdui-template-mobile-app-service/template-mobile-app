@@ -33,7 +33,7 @@ class _RootTabBarWidgetState extends State<RootTabBarWidget> {
       TabBarScreenModel(
         navBarItem: const BottomNavigationBarItem(
           icon: Icon(Icons.format_list_bulleted),
-          label: 'Меню',
+          label: 'Услуги',
         ),
         rootWidget: const MenuRootScreen(),
       ),
@@ -47,7 +47,7 @@ class _RootTabBarWidgetState extends State<RootTabBarWidget> {
       TabBarScreenModel(
         navBarItem: const BottomNavigationBarItem(
           icon: Icon(Icons.wallet_giftcard),
-          label: 'Корзина',
+          label: 'Заказ',
         ),
         rootWidget: const CardRootScreen(),
       ),

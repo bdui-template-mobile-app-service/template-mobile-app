@@ -28,7 +28,7 @@ class _CardRootScreenState extends State<CardRootScreen> {
 
     return StandardScaffold.standardWithStandardAppBar(
       context: context,
-      appBarTitle: 'Корзина',
+      appBarTitle: 'Заказ',
       body: cardProvider.menuItems.isEmpty && cardProvider.promotions.isEmpty
           ? _buildEmptyPlaceholder()
           : _buildListView(context, cardProvider),
@@ -36,7 +36,7 @@ class _CardRootScreenState extends State<CardRootScreen> {
   }
 
   Widget _buildEmptyPlaceholder() =>
-      const Center(child: StandardText('В корзине ничего нет'));
+      const Center(child: StandardText('В заказе ничего нет'));
 
   Widget _buildListView(
     BuildContext context,
@@ -72,7 +72,7 @@ class _CardRootScreenState extends State<CardRootScreen> {
       const Padding(
         padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
         child: StandardText(
-          'Пукнты меню:',
+          'Услуги:',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
       ),

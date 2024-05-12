@@ -51,7 +51,7 @@ class _ConfirmCardOrderScreenState extends State<ConfirmCardOrderScreen> {
           const Padding(
             padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: StandardText(
-              'Для подтверждения заказа введите номер телефона и желаемое время доставки',
+              'Для подтверждения заказа введите номер телефона и желаемое время посещения',
               style: TextStyle(fontSize: 18),
             ),
           ),
@@ -68,7 +68,7 @@ class _ConfirmCardOrderScreenState extends State<ConfirmCardOrderScreen> {
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: StandardTextField(
               keyboardType: TextInputType.number,
-              hintText: 'Предпочитаемое время доставки',
+              hintText: 'Предпочитаемое время посещения',
               onChange: (i) => time = i,
               maskFormatter: timeMaskFormatter,
             ),
