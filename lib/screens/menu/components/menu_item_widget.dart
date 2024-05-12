@@ -49,6 +49,7 @@ class MenuItemWidget extends StatelessWidget {
           "IMAGE_URL": imageUrl,
           "TITLE": title,
           "SUBTITLE": description,
+          "PRICE": price,
         },
       );
       final widget = remoteWidget ?? Text("kek");
