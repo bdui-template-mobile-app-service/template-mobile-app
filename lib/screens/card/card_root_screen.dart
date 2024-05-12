@@ -172,9 +172,6 @@ class _CardRootScreenState extends State<CardRootScreen> {
     List<CardMenuItemModel> menuItems,
     List<CardPromotionModel> promotions,
   ) {
-    print(menuItems);
-    print(promotions);
-
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => ConfirmCardOrderScreen(

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:graduate_work/providers/card_provider.dart';
+import 'package:graduate_work/providers/colors_provider.dart';
 import 'package:graduate_work/widgets/common/text_button.dart';
 import 'package:graduate_work/widgets/standard/standard_widgets.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 
 import '../../models/card.dart';
 import '../../networking/api/api.dart';
@@ -24,22 +26,22 @@ class ConfirmCardOrderScreen extends StatefulWidget {
 
 class _ConfirmCardOrderScreenState extends State<ConfirmCardOrderScreen> {
   static const phoneMaskFormatterPattern = "+# (###) ###-##-##";
-  static const timeMaskFormatterPattern = "##:##";
   static final maskFormatterFilter = {
     "#": RegExp(r'[0-9]'),
   };
-
   final phoneMaskFormatter = MaskTextInputFormatter(
     mask: phoneMaskFormatterPattern,
     filter: maskFormatterFilter,
   );
-  final timeMaskFormatter = MaskTextInputFormatter(
-    mask: timeMaskFormatterPattern,
-    filter: maskFormatterFilter,
-  );
-
   String phone = '';
-  String time = '';
+
+  late TextEditingController _dateTimeController;
+
+  @override
+  void initState() {
+    super.initState();
+    _dateTimeController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +68,15 @@ class _ConfirmCardOrderScreenState extends State<ConfirmCardOrderScreen> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-            child: StandardTextField(
-              keyboardType: TextInputType.number,
-              hintText: 'Предпочитаемое время посещения',
-              onChange: (i) => time = i,
-              maskFormatter: timeMaskFormatter,
+            child: DateTimePicker(
+              type: DateTimePickerType.dateTime,
+              dateMask: 'd MMMM, yyyy - hh:mm a',
+              controller: _dateTimeController,
+              dateLabelText: 'Предпочитаемое время посещения',
+              use24HourFormat: true,
+              locale: const Locale('ru', 'RU'),
+              firstDate: DateTime.now(),
+              lastDate: DateTime(2100),
             ),
           ),
           Padding(
@@ -89,7 +95,7 @@ class _ConfirmCardOrderScreenState extends State<ConfirmCardOrderScreen> {
     try {
       final response = await RestClient.shared.postCardOrder(
         CardOrderModel(
-          time,
+          _dateTimeController.text,
           phone,
           widget.menuItems,
           widget.promotions,

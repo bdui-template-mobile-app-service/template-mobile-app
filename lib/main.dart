@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:graduate_work/networking/api/api.dart';
 import 'package:graduate_work/screens/root_tabbar_widget.dart';
 import 'package:graduate_work/styles/src/color_set.dart';
-
 import 'root_state_widgets/top_level_providers.dart';
 import 'root_state_widgets/widgets_binding_handler.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   try {
@@ -38,6 +38,11 @@ class MyApp extends StatelessWidget {
       title: 'Best template',
       debugShowCheckedModeBanner: false,
       home: RootTabBarWidget(),
+      localizationsDelegates: [
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
     );
   }
 }

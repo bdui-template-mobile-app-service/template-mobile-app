@@ -29,6 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -36,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.2
   shared_preferences: ^2.0.13
-  intl: ^0.17.0
+  intl: ^0.18.1
   retrofit: ^3.0.1+1
   dio: ^4.0.4
   built_value: ^8.1.4
@@ -46,6 +48,10 @@ dependencies:
   url_launcher: ^6.1.2
   grouped_list: ^4.2.0
   logger: ^2.2.0
+  date_time_picker:
+    git:
+      url: https://github.com/DavidHDJ/date_time_picker.git
+      ref: 2.1.1
 
 dev_dependencies:
   flutter_test:
