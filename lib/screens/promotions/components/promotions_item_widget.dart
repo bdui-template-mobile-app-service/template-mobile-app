@@ -14,8 +14,7 @@ class PromotionsItemWidget extends StatelessWidget {
   final String price;
   final String imageUrl;
   final Color textColor;
-  final List<OptionItem>? options;
-  final Widget? additionalBottomWidget;
+  final bool useMargin;
 
   const PromotionsItemWidget({
     Key? key,
@@ -23,22 +22,17 @@ class PromotionsItemWidget extends StatelessWidget {
     required this.price,
     required this.imageUrl,
     required this.textColor,
-    this.options,
-    this.additionalBottomWidget,
+    required this.useMargin,
   }) : super(key: key);
 
-  factory PromotionsItemWidget.fromModel(
-    PromotionItem model, {
-    List<OptionItem>? options,
-    Widget? additionalBottomWidget,
-  }) {
+  factory PromotionsItemWidget.fromModel(PromotionItem model,
+      {bool? useMargin}) {
     return PromotionsItemWidget(
       title: model.name,
       imageUrl: model.imageUrl,
       textColor: model.textColor,
       price: defaultPriceFormat.format(model.price),
-      options: options,
-      additionalBottomWidget: additionalBottomWidget,
+      useMargin: useMargin ?? true,
     );
   }
 
@@ -48,7 +42,9 @@ class PromotionsItemWidget extends StatelessWidget {
 
     return ClipperContainer(
       color: colorSet.content,
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: useMargin
+          ? const EdgeInsets.symmetric(horizontal: 16, vertical: 8)
+          : null,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: colorSet.separator, width: 0.2),
       child: Column(
@@ -94,13 +90,10 @@ class PromotionsItemWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                if (additionalBottomWidget != null) additionalBottomWidget!,
+                )
               ],
             ),
-          ),
-          if (options != null && options!.isNotEmpty)
-            OptionsToPositionItemWidget(options: options!),
+          )
         ],
       ),
     );

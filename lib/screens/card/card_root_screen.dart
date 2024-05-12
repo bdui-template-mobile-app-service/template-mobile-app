@@ -119,20 +119,33 @@ class _CardRootScreenState extends State<CardRootScreen> {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
       ),
-      ...promotions.map((e) => PromotionsItemWidget.fromModel(
-            e.model,
-            options: e.selectedOptions.toList(),
-            additionalBottomWidget: Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 8, right: 8),
-                child: AddToCarWidget(
-                  promotion: e.model,
-                  selectedOptions: e.selectedOptions,
-                ),
+      ...promotions.map(
+        (e) => Container(
+          margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                child:
+                    PromotionsItemWidget.fromModel(e.model, useMargin: false),
+                width: double.infinity,
               ),
-            ),
-          )),
+              if (e.selectedOptions.isNotEmpty)
+                OptionsToPositionItemWidget(
+                    options: e.selectedOptions.toList()),
+              const SizedBox(height: 8),
+              AddToCarWidget(
+                promotion: e.model,
+                selectedOptions: e.selectedOptions,
+              ),
+              const SizedBox(height: 8),
+              Container(height: 2, color: Colors.grey),
+              const SizedBox(height: 4),
+            ],
+          ),
+        ),
+      )
     ];
   }
 
